@@ -1,0 +1,80 @@
+<header>
+	<nav>
+		<%= link_to 'Back', videos_path %>
+	</nav>
+
+	<h1>Show video</h1>
+</header>
+
+<div class="content_wrapper">
+	<video controls>
+		<source src="<%= @video.url %>">
+			Your browser does not support HTML5 video.
+		</video>
+
+		<strong><%= @video.title %></strong><br>
+		<%= @video.description %>
+
+		<div class="button_container">
+			<%= link_to 'Edit', edit_video_path(@video) %>
+			<%= link_to 'Delete', video_path(@video), method: :delete, data: { confirm: 'Are you sure?' } %>
+		</div>
+
+		<h2>New like</h2>
+		<%= form_for([@video, Like.new]) do |f| %>
+		<p>
+			<%= f.label :username %><br>
+			<%= collection_select( :message, :user_id, User.all, :id, :name, {}, {:multiple => false}) %>
+		</p>
+
+		<p>
+			<%= f.submit %>
+		</p>
+		<% end %>
+
+		<h2>Likes</h2>
+		<div class="grid">
+			<% @video.likes.each do |like| %>
+			<div class="grid-xs-1 grid-md-2 grid-l-4">
+				<b>User:</b> <%= User.where(id: like.user_id).pluck(:name).first %>
+
+				<div class="button_container">
+					<%= link_to 'Delete', [like.video, like], method: :delete %>
+				</div>
+			</div>
+			<% end %>
+		</div>
+
+		<h2>New message</h2>
+		<%= form_for([@video, Message.new]) do |f| %>
+		<p>
+			<%= f.label :username %><br>
+			<%= collection_select( :message, :user_id, User.all, :id, :name, {}, {:multiple => false}) %>
+		</p>
+
+		<p>
+			<%= f.label :text %><br>
+			<%= f.text_area :text %>
+		</p>
+
+		<p>
+			<%= f.submit %>
+		</p>
+		<% end %>
+
+		<h2>Messages</h2>
+		<div class="grid">
+			<% @video.messages.each do |message| %>
+			<div class="grid-xs-1 grid-md-2 grid-l-4">
+				<b>User:</b> <%= User.where(id: message.user_id).pluck(:name).first %><br>
+				<b>Date:</b> <%= message.date.strftime("%F %T") %><br>
+				<b>Text:</b> <%= message.text %><br>
+
+				<div class="button_container">
+					<%= link_to 'Edit', edit_video_message_path(@video, message) %>
+					<%= link_to 'Delete', [message.video, message], method: :delete, data: { confirm: 'Are you sure?' } %>
+				</div>
+			</div>
+			<% end %>
+		</div>
+	</div>

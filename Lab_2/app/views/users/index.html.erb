@@ -1,0 +1,29 @@
+<header>
+	<nav>
+		<%= link_to "Back", root_path %>
+	</nav>
+
+	<h1>Users</h1>
+</header>
+
+<div class="content_wrapper">
+	<div class="button_container">
+		<%= link_to "New User", new_user_path %>
+	</div>
+
+	<h2>Users</h2>
+	<div class="grid">
+		<!-- Here comes a list with all users-->
+		<% @users.each do |user| %>
+		<div class="grid-xs-1 grid-md-2 grid-l-4">
+			<strong><%= user.name %></strong><br>
+			<%= user.email %><br>
+			<%= user.birthdate.strftime("%F") %>
+
+			<div class="button_container">
+				<%= link_to 'Show', user %>
+			</div>
+		</div>
+		<% end %>
+	</div>
+</div>

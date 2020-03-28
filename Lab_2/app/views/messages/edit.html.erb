@@ -1,0 +1,40 @@
+<header>
+  <nav>
+    <%= link_to 'Videos', videos_path %>
+    <%= link_to 'Users', users_path %>
+  </nav>
+
+  <h1>Edit message</h1>
+</header>
+
+<div class="content_wrapper">
+  <%= form_for([@video, @message]) do |f| %>
+  <% if @message.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+    <ul>
+      <% @message.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+ 
+
+  <p>
+    <%= f.label :username %><br>
+    <%= collection_select( :message, :user_id, User.all, :id, :name, {}, {:multiple => false}) %>
+  </p>
+
+  <p>
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </p>
+
+  
+  <p>
+    <%= f.submit %>
+  </p>
+  <% end %>
+</div>

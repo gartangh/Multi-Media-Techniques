@@ -1,0 +1,29 @@
+<header>
+	<nav>
+		<%= link_to "Back", root_path %>
+	</nav>
+
+	<h1>Videos</h1>
+</header>
+
+<div class="content_wrapper">
+	<div class="button_container">
+		<%= link_to "New video", new_video_path %>
+	</div>
+
+	<h2>Videos</h2>
+	<div class="grid">
+		<!-- Here comes a list with all videos-->
+		<% @videos.each do |video| %>
+		<div class="grid-xs-1 grid-md-2 grid-l-4">
+			<strong><%= video.title %></strong><br>
+			<%= video.url %><br>
+			<%= video.description %><br>
+
+			<div class="button_container">
+				<%= link_to 'Show', video %>
+			</div>
+		</div>
+		<% end %>
+	</div>
+</div>

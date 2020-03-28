@@ -1,0 +1,49 @@
+<header>
+	<nav>
+		<div id="troll" onclick="troll()">
+			<a href="#">TROLL</a>
+		</div>
+		<%= link_to 'Back', users_path %>
+	</nav>
+
+	<h1>Show user</h1>
+</header>
+
+<div class="content_wrapper">
+	<strong><%= @user.name %></strong><br>
+	<%= @user.email %><br>
+	<%= @user.birthdate.strftime("%F") %>
+
+	<div class="button_container">
+		<%= link_to 'Edit', edit_user_path(@user) %>
+		<%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %>
+	</div>
+
+	<h2>Likes</h2>
+	<div class="grid">
+		<% @user.likes.each do |like| %>
+		<div class="grid-xs-1 grid-md-2 grid-l-4">
+			<b>Video:</b> <%= Video.where(id: like.video_id).pluck(:title).first %>
+
+			<div class="button_container">
+				<%= link_to 'Show', video_path(Video.where(id: like.video_id).pluck(:id).first) %>
+			</div>
+		</div>
+		<% end %>
+	</div>
+
+	<h2>Messages</h2>
+	<div class="grid">
+		<% @user.messages.each do |message| %>
+		<div class="grid-xs-1 grid-md-2 grid-l-4">
+			<b>Video:</b> <%= Video.where(id: message.video_id).pluck(:title).first %><br>
+			<b>Date:</b> <%= message.date.strftime("%F %T") %><br>
+			<b>Text:</b> <%= message.text %>
+
+			<div class="button_container">
+				<%= link_to 'Show', video_path(Video.where(id: message.video_id).pluck(:id).first) %>
+			</div>
+		</div>
+		<% end %>
+	</div>
+</div>

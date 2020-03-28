@@ -1,0 +1,23 @@
+<header>
+	<nav>
+		<%= link_to "Home", root_path %>
+		<%= link_to "Videos", videos_path %>
+		<%= link_to "Users", users_path %>
+		<%= link_to "Contact", controller: "pages", action: "show", page: "contact" %>
+		<%= link_to "About", controller: "pages", action: "show", page: "about" %>
+	</nav>
+
+	<h1>404</h1>
+</header>
+
+<div class="content_wrapper">
+	<h2>Error 404</h2>
+	<p>
+		Sorry, this page is not available.<br>
+		But here is a picture of Panda Bear!
+	</p>
+
+	<div class="center_content">
+		<img src="<%= image_url('Panda_Bear.jpg') %>">
+	</div>
+</div>

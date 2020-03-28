@@ -1,0 +1,31 @@
+<%= form_for @user do |f| %>
+<% if @user.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<p>
+  <%= f.label :email %><br>
+  <%= f.text_field :email %>
+</p>
+
+<p>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %>
+</p>
+
+<p>
+  <%= f.label :birthdate %><br>
+  <%= f.date_select :birthdate, {order: [:day, :month, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
+</p>
+
+<p>
+  <%= f.submit %>
+</p>
+<% end %>
